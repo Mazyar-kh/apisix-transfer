@@ -1,0 +1,9 @@
+docker run  -itd --name dashboard --network=host -v ./dash.conf:/usr/local/apisix-dashboard/conf/conf.yaml apache/apisix-dashboard
+
+
+docker run -dit --name apisix -v ./apisix.conf:/usr/local/apisix/conf/conf.yaml --network=host apache/apisix:latest
+
+
+docker run --itd  --name dashboard --network host -v ./dash.conf:/usr/local/apisix-dashboard/conf/conf.yaml          apisix-dashboard
+
+docker run -d   --name etcd   --network=host --env ALLOW_NONE_AUTHENTICATION=yes  -v /path/to/your/etcd.conf:/etc/etcd/etcd.yaml bitnami/etcd:latest
