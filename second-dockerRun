@@ -1,0 +1,13 @@
+docker network create apisix-network --driver bridge && docker network inspect -v apisix-network && docker run -d --name etcd   --network apisix-network   -p 2379:2379   -p 2380:2380   -e ALLOW_NONE_AUTHENTICATION=yes   -e ETCD_ADVERTISE_CLIENT_URLS=http://127.0.0.1:2379   bitnami/etcd:latest
+
+
+
+docker run -d --name apache-apisix   --network apisix-network   -p 9080:9080   -p 9180:9180   -v ./config.yaml:/usr/local/apisix/conf/config.yaml   apache/apisix
+
+
+
+docker run -d --name dashboard \
+           --network apisix-network \
+           -p 9000:9000        \
+           -v /root/apisix/dash/dash.conf:/usr/local/apisix-dashboard/conf/conf.yaml \
+           apache/apisix-dashboard
